@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cs_4750_lab1/components/card.dart';
 import 'package:cs_4750_lab1/components/foundation.dart';
 import 'package:cs_4750_lab1/components/pile.dart';
 import 'package:cs_4750_lab1/components/stock.dart';
@@ -56,13 +59,25 @@ class Klondike extends FlameGame {
 		camera.viewfinder.visibleGameSize = Vector2(cardWidth * 7 + cardGap * 8, 4 * cardHeight + 3 * cardGap);
 		camera.viewfinder.position = Vector2(cardWidth * 3.5 + cardGap * 4, 0);
 		camera.viewfinder.anchor = Anchor.topCenter;
-	}
 
-	Sprite klondikeSprite(double x, double y, double width, double height) {
-		return Sprite(
-			Flame.images.fromCache('klondike-sprites.png'),
-			srcPosition: Vector2(x, y),
-			srcSize: Vector2(width, height),
-		);
-	}
+		final random = Random();
+		for (var i = 0; i < 7; i++) {
+			for (var j = 0; j < 4; j++) {
+				final card = Card(random.nextInt(13) + 1, random.nextInt(4))
+					..position = Vector2(100 + i * 1150, 100 + j * 1500)
+					..addToParent(world);
+				if (random.nextDouble() < 0.9) {
+					card.flip();
+				}
+			}
+		}
+	}	
+}
+
+Sprite klondikeSprite(double x, double y, double width, double height) {
+	return Sprite(
+		Flame.images.fromCache('klondike-sprites.png'),
+		srcPosition: Vector2(x, y),
+		srcSize: Vector2(width, height),
+	);
 }
