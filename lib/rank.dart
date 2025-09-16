@@ -1,12 +1,14 @@
-import 'package:cs_4750_lab1/klondike.dart';
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
+import 'klondike_game.dart';
 
 @immutable
 class Rank {
   factory Rank.fromInt(int value) {
-    assert(value >= 1 && value <= 13);
+    assert(
+      value >= 1 && value <= 13,
+      'value is outside of the bounds of what a rank can be',
+    );
     return _singletons[value - 1];
   }
 
